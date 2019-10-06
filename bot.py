@@ -19,36 +19,13 @@ class Mods(Enum):
     HR              = 16 # 1 0000
     SD              = 32 # 10 0000
     DT              = 64 # 100 0000
-    #Relax           = 128 # 1000 0000
     HT              = 256 # 1 0000 0000
     #NC              = 512   # Only set along with DT. i.e: NC only gives 576
     NC              = 576 # 10 0100 0000
     FL              = 1024 # 100 0000 0000
-    #Autoplay        = 2048
     SO              = 4096 # 1 0000 0000 0000
-    #Autopilot       = 8192  # 10 0000 0000 0000 (Originally Relax2)
     #PF              = 16384 # Only set along with SD. i.e: PF only gives 16416
     PF              = 16416 # 100 0000 0010 0000
-    #Key4            = 32768
-    #Key5            = 65536
-    #Key6            = 131072
-    #Key7            = 262144
-    #Key8            = 524288
-    #FadeIn          = 1048576
-    #Random          = 2097152
-    #Cinema          = 4194304
-    #Target          = 8388608
-    #Key9            = 16777216
-    #KeyCoop         = 33554432
-    #Key1            = 67108864
-    #Key3            = 134217728
-    #Key2            = 268435456
-    #ScoreV2         = 536870912
-    #LastMod         = 1073741824
-    #KeyMod = Key1 | Key2 | Key3 | Key4 | Key5 | Key6 | Key7 | Key8 | Key9 | KeyCoop,
-    #FreeModAllowed = NoFail | Easy | Hidden | HardRock | SuddenDeath | Flashlight | FadeIn | Relax | Relax2 | SpunOut | KeyMod,
-    #ScoreIncreaseMods = Hidden | HardRock | DoubleTime | Flashlight | FadeIn
-
 
 discord_api_key = open("./api_keys/discord_api_key.txt", "r")
 osu_api_key_open = open("./api_keys/osu_api_key.txt", "r")
@@ -127,12 +104,6 @@ async def rs_raw(ctx, *, content:str):
         print(request_json_beatmap)
         await ctx.send(request_json_beatmap)
 
-        #print('mod = ' + Mods(int(request_json['enabled_mods'])).name)
-        #if int(request_json['enabled_mods']) in Mods.__members__.values():
-        #    print('mod = ' + Mods(int(request_json['enabled_mods'])).name)
-        #elif Mods:
-        #    pass
-
 @bot.command()
 async def rs(ctx, *, content:str):
     if content == None:
@@ -147,9 +118,6 @@ async def rs(ctx, *, content:str):
         request_json_beatmap = request_list[0]
 
         accuracy = (int(request_json_recent['count300']) * 300 + int(request_json_recent['count100']) * 100 + int(request_json_recent['count50']) * 50) / ((int(request_json_recent['count300']) * 300 + int(request_json_recent['count100']) * 300 + int(request_json_recent['count50']) * 300 + int(request_json_recent['countmiss']) * 300))
-
-        #if (request_json_recent['enabled_mods'] & )
-        #1 & (word<<nr)
 
         await ctx.send('**Most Recent osu! Standard Play for ' + content + ':**')
         embed = discord.Embed(title = request_json_beatmap['title'] + ' [' + request_json_beatmap['version'] + '] +' + '[' + str(round(float(request_json_beatmap['difficultyrating']), 2)) + '*]', color=0xeee657)

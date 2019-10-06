@@ -1,10 +1,9 @@
-from enum import Enum
 import json
+import math
+from enum import Enum
 import discord
 import requests
 from discord.ext import commands
-from osuapi import OsuApi, ReqConnector
-import math
 
 def truncate(number, digits) -> float:
     stepper = 10.0 ** digits
@@ -55,14 +54,7 @@ async def hello(ctx):
     await ctx.send('Hello ' + str(ctx.author) + '!')
 
 @bot.command()
-async def user_depr(ctx, *, content:str):
-    if content == None:
-        await ctx.send('No username/ID given')
-    else:
-        await ctx.send(api.get_user(content, event_days=31))
-
-@bot.command()
-async def user_json(ctx, *, content:str):
+async def user_raw(ctx, *, content:str):
     if content == None:
         await ctx.send('No username/ID given')
     else:
@@ -129,5 +121,4 @@ async def rs(ctx, *, content:str):
         embed.add_field(name = "Combo:", value = request_json_recent['maxcombo'] + '/' + request_json_beatmap['max_combo'])     
         await ctx.send(embed=embed)
 
-api = OsuApi(osu_api_key_open.read(), connector=ReqConnector())
 bot.run(discord_api_key.read())

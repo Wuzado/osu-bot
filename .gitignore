@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Visual Studio Code files/settings
+.vscode/
+
+# API keys, so I won't leak them by accident
+api_keys/
